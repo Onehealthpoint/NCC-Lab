@@ -1,0 +1,70 @@
+Set 4:
+
+Q-1:
+
+Console App
+
+AbstractAndInterface.cs
+
+
+===========================================================================================================================================================
+===========================================================================================================================================================
+
+Q-2:
+
+ASP.NET Core MVC
+
+Configure Session in Program.cs:
+	// Add to your services configuration
+	builder.Services.AddSession(options =>
+	{
+		options.IdleTimeout = TimeSpan.FromMinutes(30);
+		options.Cookie.HttpOnly = true;
+		options.Cookie.IsEssential = true;
+	});
+
+	// Add to middleware pipeline (before UseRouting and after UseCookiePolicy)
+	app.UseSession();
+	
+Controllers/UserPreferencesController.cs
+Models/UserPreferences.cs
+Views/UserPreferences/Index.cshtml
+
+===========================================================================================================================================================
+===========================================================================================================================================================
+
+Q-3:
+
+ASP.NET Core MVC
+
+Models/ContactForm.cs
+Controllers/ContactController.cs
+Views/Contact/Index.cshtml
+
+===========================================================================================================================================================
+===========================================================================================================================================================
+
+Q-4:
+
+Take any project from above
+
+Publish the Application:
+	clean
+	build
+	publish
+	
+Enable IIS
+	search for "Turn Windows features on or off" in the Start menu
+	expand Internet Information Services
+	select 
+		Web Management Tools (for IIS Management Console)
+		World Wide Web Services > Application Development Features > ASP
+	Click OK
+	If prompted, Restart your computer
+	
+Create a new Site
+	Point to the published folder
+	Bind to appropriate port/hostname
+	Assign the application pool you created
+	
+Visit Site

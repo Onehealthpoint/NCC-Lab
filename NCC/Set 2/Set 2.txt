@@ -1,0 +1,64 @@
+Set 2
+
+Q-1:
+
+Console App
+
+Async.cs
+
+===================================================================================================
+===================================================================================================
+
+Q-2:
+
+ASP.NET Core MVC
+
+Controllers/ProductsController.cs
+Models/Product.cs
+
+===================================================================================================
+===================================================================================================
+
+Q-3:
+
+ASP.NET Core Web API
+
+Models/Student.cs
+Services/IStudentService.cs
+Services/StudentService.cs
+Controllers/StudentsController.cs
+
+Update Program.cs to register the service:
+
+	services.AddScoped<IStudentService, StudentService>();
+
+
+
+===================================================================================================
+===================================================================================================
+
+Q-4:
+
+ASP.NET Core MVC
+
+Update Program.cs in the WebApp project to configure authentication:
+
+	// Add these to your services configuration
+	builder.Services.AddAuthentication("CookieAuth")
+		.AddCookie("CookieAuth", options =>
+		{
+			options.Cookie.Name = "AuthCookie";
+			options.LoginPath = "/Account/Login";
+		});
+
+	builder.Services.AddAuthorization(options =>
+	{
+		options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+	});
+
+
+Controllers/AccountController.cs
+Views/Account/Login.cshtml
+
+Controllers/AdminController.cs
+Views/Admin/Index.cshtml

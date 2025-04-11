@@ -1,0 +1,88 @@
+Set 3
+
+Q-1, Q-3:
+
+Console App
+
+q1. DelegateAndEvent.cs
+q3. LinqDemo.cs
+
+===========================================================================================================================================================
+===========================================================================================================================================================
+
+Q-2:
+
+ASP.NET Core MVC
+
+Install required NuGet packages:
+
+	Microsoft.EntityFrameworkCore
+	Microsoft.EntityFrameworkCore.SqlServer
+	Microsoft.EntityFrameworkCore.Tools
+	
+Models/Product.cs
+Models/AppDbContext.cs
+Controller/ProductsController.cs
+Views/Products/
+	Index.cshtml
+	Create.cshtml
+	
+Add a connection string to appsettings.json
+
+	{
+	  "ConnectionStrings": {
+		"DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=ProductDb;Trusted_Connection=True;"
+	  }
+	}
+	
+Update Program.cs (or Startup.cs) to configure EF Core:
+
+		builder.Services.AddDbContext<AppDbContext>(options =>
+			options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+Run migrations:
+	
+	dotnet ef migrations add InitialCreate
+	dotnet ef database update
+
+===========================================================================================================================================================
+===========================================================================================================================================================
+
+Q-4:
+
+ASP.NET Core Web API
+
+Install required NuGet packages:
+
+	Microsoft.AspNetCore.Authentication.JwtBearer
+	System.IdentityModel.Tokens.Jwt
+
+Update appsettings.json:
+	
+	{
+	  "Jwt": {
+		"Key": "ThisIsMySuperSecretKeyForJWTTokenGeneration",
+		"Issuer": "https://localhost:5001",
+		"Audience": "https://localhost:5001"
+	  }
+	}
+
+Create Models/AuthModels.cs
+Create Services/IAuthService.cs
+Create Services/AuthService.cs
+Create Controllers/AuthController.cs
+Create a secure controller Controllers/SecureController.cs
+Update Program.cs (or Startup.cs) to configure JWT
+Configure Swagger to Support JWT Authentication in Program.cs
+
+
+POST to /api/auth/login with { "username": "admin", "password": "password" }
+
+You'll see an "Authorize" button in the Swagger UI
+
+Click it and enter your JWT token (prefixed with "Bearer ") 
+	Eg: Bearer e4fghrtasdasdasjhdajsdjhaskfjhajfkbvavbakjhbviurery8wyrr6...
+	
+Now you can test:
+	/api/secure - Will work with any valid token
+	/api/secure/admin - Will only work with tokens that have the "Admin" role
